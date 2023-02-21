@@ -3,7 +3,6 @@ package com.example.firebaseexample;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,38 +14,39 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-//import android.widget.Uri;
 import android.net.Uri;
 import android.widget.Toast;
+
+//import android.widget.Uri;
 //import android.widget.TaskSnapshot;
 //import android.app.ActivityManager.TaskSnapshot;
 //import androidx.core.view.TaskSnapshotCompat;
-import com.google.android.gms.tasks.TaskSnapshot;
-
 //import com.google.android.gms.auth.api.signin.internal.Storage;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import androidx.window.layout.TaskSnapshot;
+
+//import com.google.android.gms.tasks.TaskSnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-
     private Button mButtonChooseImage;
     private Button mButtonUpload;
     private TextView mTextViewShoUploads;
     private EditText mEditTextFilename;
     private ImageView mImageView;
     private ProgressBar mProgressBar;
-
     private Uri mImageUri;
-
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
 
@@ -118,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
                            Handler handler = new Handler();
                            handler.postDelayed(new Runnable() {
                                @Override
-                               public void run() {
+                               public void run()
+                               {
                                  mProgressBar.setProgress(0);
                                }
                            }, 500);
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                        @Override
                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                           FileDownloadTask.TaskSnapshot taskSnapshot;
                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
                            mProgressBar.setProgress((int) progress);
                        }
